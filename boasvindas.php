@@ -4,6 +4,12 @@
 
     echo 'Seu login funcionou :-)';
 
+    // $senha_cripto = password_hash(123,PASSWORD_BCRYPT, [
+    //     'cost' => 10,
+    // ]);
+    // echo $senha_cripto;
+    // die();
+
 ?>
 
 <p>
