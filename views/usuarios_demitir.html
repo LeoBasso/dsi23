@@ -1,0 +1,18 @@
+{# usuarios_demitir.html #}
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+	<p>Tem certeza que desenja fazer isso?</P>
+
+	<form action="usuarios_demitir.php" method="post">
+		<input type="hidden" name="id" value="{{ id }}">
+		<input type="submit" value="Apagar">
+	</form>
+
+	<p>
+		<a href="usuarios_novo.php">Cancelar</a>
+	</p>
+
+{% endblock %}
+

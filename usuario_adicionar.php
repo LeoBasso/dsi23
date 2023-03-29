@@ -1,20 +1,29 @@
 <?php
+    
+    #usuario_adicionar.php
+
+    require('models/Model.php');
+    require('models/Usuario.php');
     require('pdo.inc.php');
 
-    $name = $_POST['username'] ?? false;
+    $username = $_POST['username'] ?? false;
     $password = $_POST['password'] ?? false;
     $admin = isset($_POST['admin']);
 
-    $inserir = $pdo->prepare('INSERT INTO usuarios (username, password, active, admin)
-    VALUES (:name, :password, "1", :admin)');
-    
-    $inserir->bindParam(':name', $name, PDO::PARAM_STR);
-    $inserir->bindParam(':password', $password, PDO::PARAM_STR);
-    $inserir->bindParam(':admin', $admin, PDO::PARAM_STR);
+    if (!$username || !$password) {
+        header('location:usuarios.php?erro=1');
+        die;
+    }
 
-    if($inserir->execute()){
-        echo"Sucesso";
-    }else{
-        echo"Falha";
-    }   
-?>
+    $password = password_hash($password, PASSWORD_BCRYPT);
+
+    $usuario = new Usuario();
+    $usuario->create([
+        'username' => $username,
+        'password' => $password,
+        'admin' => $admin,
+        'active' => 1,
+    ]);
+
+    header('location:usuarios.php');
+    die;
